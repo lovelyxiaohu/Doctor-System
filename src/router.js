@@ -22,6 +22,6 @@ export default new VueRouter({
    */
 
   routes: [
-    { path: '/', component: load('Index') ,children:[{ path: "/baidu", component:load('Baidu') }]} // Default,// Not found
+    { path: '/', component: load('Index') ,children:[{ path: "baidu", component:load('Baidu') },{ path: "settlementhome", component:load('SettlementHome') }]} // Default,// Not found
   ]
 })
