@@ -7,6 +7,10 @@ function load(component) {
   return () => System.import(`components/${component}.vue`)
 }
 
+function settlementload(component) {
+  return () => System.import(`components/settlement/${component}.vue`)
+}
+
 export default new VueRouter({
   mode:"history",
   /*
@@ -22,6 +26,6 @@ export default new VueRouter({
    */
 
   routes: [
-    { path: '/', component: load('Index') ,children:[{ path: "baidu", component:load('Baidu') },{ path: "settlementhome", component:load('SettlementHome') }]} // Default,// Not found
+    { path: '/', component: load('Index') ,children:[{ path: "baidu", component:load('Baidu') }]},{ path: "/settlementhome", component:settlementload('SettlementHome') } // Default,// Not found
   ]
 })

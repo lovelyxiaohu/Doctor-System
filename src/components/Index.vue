@@ -88,7 +88,7 @@
 </template>
 
 <script>
-  import { MP } from '../map';
+  
   export default {
     data() {
       return {
