@@ -1,5 +1,5 @@
 <template>
-  <q-layout>
+  <q-layout style='width:100%;'>
     <!-- Header -->
     <div slot="header" class="toolbar" style='text-align: center;background: #fff;color:#000;'>
       <button class="hide-on-drawer-visible" @click="$refs.leftDrawer.open()">
@@ -47,13 +47,22 @@
       <!-- Left-side Drawer -->
       <q-drawer ref="leftDrawer">
         <div class="toolbar" style="background: #fff;color:#000;">
-          <q-toolbar-title>
-            Drawer Title
+          <q-toolbar-title style='height:100px;display:flex;align-items:center;'>
+            <span class="chip label" style="width:100%;">
+              <img src="../assets/header.jpg">
+              John
+            </span>
           </q-toolbar-title>
         </div>
         <div class="list no-border platform-delimiter">
-          <q-drawer-link icon="mail" :to="{path: '/', exact: true}">
-            Link
+          <q-drawer-link icon="home" :to="{path: '/stroke', exact: true}">
+            我的行程
+          </q-drawer-link>
+          <q-drawer-link icon="accessibility" :to="{path: '/wallet', exact: true}">
+            我的钱包
+          </q-drawer-link>
+          <q-drawer-link icon="reorder" :to="{path: '/setting', exact: true}">
+            设置
           </q-drawer-link>
         </div>
 
@@ -162,7 +171,7 @@
 
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
   .toolbar {
     padding: 0;
   }
@@ -185,7 +194,27 @@
     color: #ea1235 !important;
   }
   
-  .q-fab.opened .backdrop {
-    transform: translate3d(0px, 0px, 0px) !important;
+ 
+  .label.chip{
+    height:60px;
+    border-radius:50px;
   }
+  .label.chip img, .label.chip div{
+    height:60px;
+    width:60px;
+  }
+  .item > .item-content{
+    padding:7px 0;
+  }
+  .list{
+    margin:10px 0;
+  }
+  .item{
+    height:40px;
+    margin:10px 0;
+  }
+  .item > i.item-primary{
+    top:-10px;
+    font-size:24px;
+  } 
 </style>

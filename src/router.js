@@ -7,8 +7,8 @@ function load(component) {
   return () => System.import(`components/${component}.vue`)
 }
 
-function settlementload(component) {
-  return () => System.import(`components/settlement/${component}.vue`)
+function settlementload(compoent1,component2) {
+  return () => System.import(`components/${compoent1}/${component2}.vue`)
 }
 
 export default new VueRouter({
@@ -26,6 +26,10 @@ export default new VueRouter({
    */
 
   routes: [
-    { path: '/', component: load('Index') ,children:[{ path: "baidu", component:load('Baidu') }]},{ path: "/settlementhome", component:settlementload('SettlementHome') } // Default,// Not found
+    { path: '/', component: load('Index') ,children:[{ path: "baidu", component:load('Baidu') }]},
+    { path: "/settlementhome", component:settlementload('settlement','SettlementHome') } ,
+    {path:"/stroke", component:settlementload("titleBar","Stroke")},
+    {path:'/wallet',component:settlementload("titleBar","Wallet")},
+    {path:'/setting',component:settlementload("titleBar","Set")},
   ]
 })
