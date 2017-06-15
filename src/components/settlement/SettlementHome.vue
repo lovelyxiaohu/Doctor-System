@@ -67,46 +67,42 @@
     <!-- Footer -->
    
     <div slot="footer" style='background: #fff;color:#000;'>
-    <div class="layout-padding"  v-if='show' :key='scoredisplay'>
-   
-      <div style='text-align:center;position:relative'>
-      <span style='position:absolute;left:0;' @click='showsettlehome'>× </span>
-      <span style='text-align:center'>评价</span>
-       
+    <transition-group name='fadeTr'>
+      <div class="layout-padding"  v-if='show' :key='show'> 
+        <div style='text-align:center;position:relative'>
+        <span style='position:absolute;left:0;' @click='showsettlehome'>× </span>
+        <span style='text-align:center'>评价</span>     
+        </div>
+        <div style="font-size: 2rem; margin-top: 20px;text-align:center;">
+          <q-rating v-model="ratingModel" :max="5"></q-rating>
+          <span><em>{{ratingModel}}</em></span>
+        </div>
+        <div style='height:30px;line-height:30px;'>
+          <span style='position:absolute;left:20px;'>Readonly1</span><span style='position:absolute;right:20px;'>Readonly2</span>
+        </div>
       </div>
 
-      <div style="font-size: 2rem; margin-top: 20px;text-align:center;">
-        <q-rating v-model="ratingModel" :max="5"></q-rating>
-       <span><em>{{ratingModel}}</em></span>
-      </div>
-<div style='height:30px;line-height:30px;'>
-      <span style='position:absolute;left:20px;'>Readonly1</span><span style='position:absolute;right:20px;'>Readonly2</span>
-</div>
-    </div>
-
-    <!--显示金额-->
-      <div class="card" style='margin-bottom:0;' v-else='!show' :key='homedisplay'>
-        <div class="item two-lines">
-          <img class="item-primary" src="../../assets/settlement/katong.jpg">
-          <div class="item-content">
-            <div>Joe</div>
-            <div>Web Developer</div>      
+      <!--显示金额-->
+        <div class="card" style='margin-bottom:0;' v-if='!show' :key='!show'>
+          <div class="item two-lines">
+            <img class="item-primary" src="../../assets/settlement/katong.jpg">
+            <div class="item-content">
+              <div>Joe</div>
+              <div>Web Developer</div>      
+            </div>
           </div>
-        </div>
-        <div class="card-content">
-        <hr style='width:100%'/>
-          <small>需要帮助</small>
+          <div class="card-content">
           <hr style='width:100%'/>
-        <dl style='padding:10px;'><dt>
-          共<b style='font-size:24px;color:#000;'>100</b>元</dt><dd><small>费用疑问&gt;</small></dd></dl>
-          
-          <hr style='width:100%'/>
-          <small @click='givescore' >评价本次服务&gt;</small>
+            <small>需要帮助</small>
+            <hr style='width:100%'/>
+          <dl style='padding:10px;'><dt>
+            共<b style='font-size:24px;color:#000;'>100</b>元</dt><dd><small>费用疑问&gt;</small></dd></dl>  
+            <hr style='width:100%'/>
+            <small @click='givescore' >评价本次服务&gt;</small>
+          </div>   
         </div>
-        
-      </div>
-    </div>
- 
+      </transition-group>
+    </div>   
   </q-layout>
     
 </template>
@@ -193,5 +189,12 @@ export default {
   height:60px;
   width:60px;
 }
-
+.fadeTr-enter,.fadeTr-leave-active{
+  transition:all 1s;
+  position:absolute;
+  top:0;
+}
+.fadeTr-enter-active,.fadeTr-leave{
+  top:500px;
+}
 </style>
