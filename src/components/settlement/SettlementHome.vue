@@ -1,5 +1,5 @@
 <template>
-<q-layout>
+<q-layout style='width:100%;'>
     <!-- Header -->
     <div slot="header" class="toolbar" style='text-align: center;background: #fff;color:#000;'>
       <button class="hide-on-drawer-visible" @click="$refs.leftDrawer.open()">
@@ -28,21 +28,27 @@
       </button>
     </div>
     <!-- Navigation Tabs -->
-    <div style='width:100%;'>
-     
-          <div id='allmap' style='width:100%;height:100%;'></div>
-          
-
+    <div style='width:100%;'>    
+      <div id='allmap' style='width:100%;height:100%;'></div>
       <!-- Left-side Drawer -->
       <q-drawer ref="leftDrawer">
         <div class="toolbar" style="background: #fff;color:#000;">
-          <q-toolbar-title>
-            Drawer Title
+          <q-toolbar-title style='height:100px;display:flex;align-items:center;'>
+            <span class="chip label" style="width:100%;">
+              <img src="../../assets/header.jpg">
+              John
+            </span>
           </q-toolbar-title>
         </div>
         <div class="list no-border platform-delimiter">
-          <q-drawer-link icon="mail" :to="{path: '/', exact: true}">
-            Link
+          <q-drawer-link icon="home" :to="{path: '/stroke', exact: true}">
+            我的行程
+          </q-drawer-link>
+          <q-drawer-link icon="accessibility" :to="{path: '/wallet', exact: true}">
+            我的钱包
+          </q-drawer-link>
+           <q-drawer-link icon="reorder" :to="{path: '/setting', exact: true}">
+            设置
           </q-drawer-link>
         </div>
 
@@ -59,48 +65,44 @@
     
     </div>
     <!-- Footer -->
-    <div slot="footer" style='background: #fff;color:#000;'>
-      
-    <div class="layout-padding" :class="scoredisplay === 0 ? 'hidedisplay' : ''">
    
-      <div style='text-align:center;position:relative'>
-      <span style='position:absolute;left:0;' @click='showsettlehome'>× </span>
-      <span style='text-align:center'>评价</span>
-       
+    <div slot="footer" style='background: #fff;color:#000;'>
+    <transition-group name='fadeTr'>
+      <div class="layout-padding"  v-if='show' :key='show'> 
+        <div style='text-align:center;position:relative'>
+        <span style='position:absolute;left:0;' @click='showsettlehome'>× </span>
+        <span style='text-align:center'>评价</span>     
+        </div>
+        <div style="font-size: 2rem; margin-top: 20px;text-align:center;">
+          <q-rating v-model="ratingModel" :max="5"></q-rating>
+          <span><em>{{ratingModel}}</em></span>
+        </div>
+        <div style='height:30px;line-height:30px;'>
+          <span style='position:absolute;left:20px;'>Readonly1</span><span style='position:absolute;right:20px;'>Readonly2</span>
+        </div>
       </div>
 
-      <div style="font-size: 2rem; margin-top: 20px;text-align:center;">
-        <q-rating v-model="ratingModel" :max="5"></q-rating>
-       <span><em>{{ratingModel}}</em></span>
-      </div>
-<div style='height:30px;line-height:30px;'>
-      <span style='position:absolute;left:20px;'>Readonly1</span><span style='position:absolute;right:20px;'>Readonly2</span>
-</div>
-    </div>
-
-    <!--显示金额-->
-      <div class="card" style='margin-bottom:0;' :class="homedisplay === 1 ? '' : 'hidedisplay'">
-  <div class="item two-lines">
-    <img class="item-primary" src="../../assets/settlement/katong.jpg">
-    <div class="item-content">
-      <div>Joe</div>
-      <div>Web Developer</div>      
-    </div>
-  </div>
-  <div class="card-content">
-  <hr style='width:100%'/>
-    <small>需要帮助</small>
-    <hr style='width:100%'/>
-   <dl style='padding:10px;'><dt>
-    共<b style='font-size:24px;color:#000;'>100</b>元</dt><dd><small>费用疑问&gt;</small></dd></dl>
-    
-    <hr style='width:100%'/>
-    <small @click='givescore' >评价本次服务&gt;</small>
-  </div>
-
-</div>
-       
-      </div>
+      <!--显示金额-->
+        <div class="card" style='margin-bottom:0;' v-if='!show' :key='!show'>
+          <div class="item two-lines">
+            <img class="item-primary" src="../../assets/settlement/katong.jpg">
+            <div class="item-content">
+              <div>Joe</div>
+              <div>Web Developer</div>      
+            </div>
+          </div>
+          <div class="card-content">
+          <hr style='width:100%'/>
+            <small>需要帮助</small>
+            <hr style='width:100%'/>
+          <dl style='padding:10px;'><dt>
+            共<b style='font-size:24px;color:#000;'>100</b>元</dt><dd><small>费用疑问&gt;</small></dd></dl>  
+            <hr style='width:100%'/>
+            <small @click='givescore' >评价本次服务&gt;</small>
+          </div>   
+        </div>
+      </transition-group>
+    </div>   
   </q-layout>
     
 </template>
@@ -111,8 +113,9 @@ export default {
       return {
         homedisplay:1,
         scoredisplay:0,
-         ratingModel: 5
-        }
+        ratingModel: 5,
+        show:false
+      }
    },
 
     computed: {
@@ -126,12 +129,14 @@ export default {
     },
     methods: {
      showsettlehome(){
-this.homedisplay=1;
-this.scoredisplay=0;
+      this.homedisplay=1;
+      this.scoredisplay=0;
+      this.show = false;
      },
       givescore() {
         this.homedisplay=0;
         this.scoredisplay=1;
+        this.show = true;
       }
     },
     mounted() {
@@ -142,7 +147,7 @@ this.scoredisplay=0;
       }
       setTimeout(() => {
         init()
-      }, 500)
+      }, 1000)
 
     },
     beforeDestroy() {
@@ -152,13 +157,17 @@ this.scoredisplay=0;
 
 </script>
 
-<style lang="stylus">
+<style scoped>
+.item{
+    height:40px;
+    margin:10px 0;
+}
+.item > i.item-primary{
+    top:-10px;
+    font-size:24px;
+}
 .layout-footer{
-    width:90%;
-    position:absolute;
-    bottom:5px;
-    left:50%;
-    transform:translateX(-50%);
+   
 }
 .card-content{
     padding: 13px 0px;
@@ -171,5 +180,21 @@ this.scoredisplay=0;
 }
 .showdisplay{
   display:none;
+}
+.label.chip{
+  height:60px;
+  border-radius:50px;
+}
+.label.chip img, .label.chip div{
+  height:60px;
+  width:60px;
+}
+.fadeTr-enter,.fadeTr-leave-active{
+  transition:all 1s;
+  position:absolute;
+  top:0;
+}
+.fadeTr-enter-active,.fadeTr-leave{
+  top:500px;
 }
 </style>
