@@ -2,9 +2,13 @@
   <q-layout style='width:100%;'>
     <!-- Header -->
     <div slot="header" class="toolbar" style='text-align: center;background: #fff;color:#000;'>
-      <button class="hide-on-drawer-visible" @click="$refs.leftDrawer.open()">
+      <button v-if="islogin" class="hide-on-drawer-visible" @click="$refs.leftDrawer.open()">
       <i>menu</i>
     </button>
+    <button v-else class="hide-on-drawer-visible" v-for="dialog in form"
+          @click="dialog.handler()">
+           <i>menu</i>
+          </button>
       <q-toolbar-title :padding="1">
         宁波市
       </q-toolbar-title>
@@ -49,7 +53,7 @@
         <div class="toolbar" style="background: #fff;color:#000;">
           <q-toolbar-title style='height:100px;display:flex;align-items:center;'>
             <span class="chip label" style="width:100%;">
-              <img src="../assets/header.jpg">
+             
               John
             </span>
           </q-toolbar-title>
@@ -97,10 +101,43 @@
 </template>
 
 <script>
-  
+  import { Dialog,Toast} from 'quasar'
   export default {
     data() {
       return {
+        islogin:false,
+        form: [
+        {
+          handler () {
+            Dialog.create({
+              title: '输入密码',
+             
+              form: {
+                tel: {
+                  type: 'textbox',
+                  label: '',
+                  model: '1567889953'
+                },
+                password: {
+                 type: 'password',
+                 label: '请输入密码',
+                 model: ''
+                },
+                
+              },
+              buttons: [
+                'Cancel',
+                {
+                  label: 'Ok',
+                  handler (data) {
+                    Toast.create('Returned ' + JSON.stringify(data))
+                  }
+                }
+              ]
+            })
+          }
+        }
+         ],
         item: {
           "a": "b"
         },
