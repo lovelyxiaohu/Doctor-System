@@ -35,7 +35,7 @@
         <div class="toolbar" style="background: #fff;color:#000;">
           <q-toolbar-title style='height:100px;display:flex;align-items:center;'>
             <span class="chip label" style="width:100%;">
-              <img src="../../assets/header.jpg">
+              
               John
             </span>
           </q-toolbar-title>
