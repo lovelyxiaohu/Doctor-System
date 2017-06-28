@@ -19,7 +19,17 @@ module.exports = merge(baseWebpackConfig, {
     historyApiFallback: true,
     noInfo: true
   },
+
   module: {
+    //loaders加载器
+    loaders: [
+      {
+
+        test: /\.less$/,
+
+        loader: "style-loader!css-loader!less-loader",
+
+      }],
     rules: cssUtils.styleRules({
       sourceMap: config.dev.cssSourceMap,
       postcss: true

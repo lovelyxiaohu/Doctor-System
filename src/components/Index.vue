@@ -9,6 +9,7 @@
           @click="dialog.handler()">
            <i>menu</i>
           </button>
+         
       <q-toolbar-title :padding="1">
         宁波市
       </q-toolbar-title>
@@ -106,14 +107,15 @@
     data() {
       return {
         islogin:false,
-        form: [
+       form: [
         {
+          label: 'Textfields',
+          icon: 'help',
           handler () {
             Dialog.create({
               title: '输入密码',
-             
               form: {
-                tel: {
+               tel: {
                   type: 'textbox',
                   label: '',
                   model: '1567889953'
@@ -123,12 +125,11 @@
                  label: '请输入密码',
                  model: ''
                 },
-                
               },
               buttons: [
-                'Cancel',
+                '取消',
                 {
-                  label: 'Ok',
+                  label: '登录',
                   handler (data) {
                     Toast.create('Returned ' + JSON.stringify(data))
                   }
@@ -136,8 +137,9 @@
               ]
             })
           }
-        }
-         ],
+        },
+       ],
+         
         item: {
           "a": "b"
         },
@@ -254,4 +256,5 @@
     top:-10px;
     font-size:24px;
   } 
+
 </style>

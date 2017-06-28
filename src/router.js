@@ -31,5 +31,6 @@ export default new VueRouter({
     {path:"/stroke", component:settlementload("titleBar","Stroke")},
     {path:'/wallet',component:settlementload("titleBar","Wallet")},
     {path:'/setting',component:settlementload("titleBar","Set")},
+     { path: '/test', component: load('Test')},
   ]
 })

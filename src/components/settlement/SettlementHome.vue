@@ -157,7 +157,7 @@ export default {
 
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
 .item{
     height:40px;
     margin:10px 0;
